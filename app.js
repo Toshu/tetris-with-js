@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let nextRandom = 0;
 
+    let timerId = 0;
+
     // the tetrominos
     const lTetromino = [
         [1, width + 1, width * 2 + 1, 2],
@@ -69,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // move down the current tetromino every second
-    const timerId = setInterval(moveDown, 1000);
+    //    // move down the current tetromino every second
+    //    timerId = setInterval(moveDown, 1000);
 
     // function to evaluate key
     function control(event) {
@@ -173,4 +175,17 @@ document.addEventListener('DOMContentLoaded', () => {
             displaySquares[displayIndex + index].classList.add('tetromino')
         );
     }
+
+    // add functionality to button
+    startButton.addEventListener('click', () => {
+        if (timerId) {
+            clearInterval(timerId);
+            timerId = 0;
+        } else {
+            draw();
+            timerId = setInterval(moveDown, 1000);
+            nextRandom = Math.floor(Math.random() * theTetrominos.length);
+            displayNextTetromino();
+        }
+    });
 });
