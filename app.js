@@ -1,8 +1,6 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('loaded...');
-
     const grid = document.querySelector('.grid');
 
     let squares = Array.from(document.querySelectorAll('.grid div'));
@@ -76,9 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    //    // move down the current tetromino every second
-    //    timerId = setInterval(moveDown, 1000);
-
     // function to evaluate key
     function control(event) {
         if (event.keyCode === 37) {
@@ -97,8 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function moveDown() {
         undraw();
+
         currentPosition += width;
+
         draw();
+
         freeze();
     }
 
