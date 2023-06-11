@@ -18,6 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let timerId = 0;
 
+    const colors = ['orange', 'red', 'purple', 'green', 'blue'];
+
     // the tetrominos
     const lTetromino = [
         [1, width + 1, width * 2 + 1, 2],
@@ -62,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function draw() {
         current.forEach((index) => {
             squares[currentPosition + index].classList.add('tetromino');
+            squares[currentPosition + index].style.backgroundColor = colors[random];
         });
     }
 
@@ -69,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function undraw() {
         current.forEach((index) => {
             squares[currentPosition + index].classList.remove('tetromino');
+            squares[currentPosition + index].style.backgroundColor = '';
         });
     }
 
@@ -172,11 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // display the shape in the mini-grid display
     function displayNextTetromino() {
         // undraw previouse tetromino
-        displaySquares.forEach((square) => square.classList.remove('tetromino'));
+        displaySquares.forEach((square) => {
+            square.classList.remove('tetromino');
+            square.style.backgroundColor = '';
+        });
         // draw next tetromino
-        upNextTetrominos[nextRandom].forEach((index) =>
-            displaySquares[displayIndex + index].classList.add('tetromino')
-        );
+        upNextTetrominos[nextRandom].forEach((index) => {
+            displaySquares[displayIndex + index].classList.add('tetromino');
+            displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom];
+        });
     }
 
     // add functionality to button
@@ -203,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 row.forEach((index) => {
                     squares[index].classList.remove('taken');
                     squares[index].classList.remove('tetromino');
+                    squares[index].style.backgroundColor = '';
                 });
 
                 const squaresRemoved = squares.splice(i, width);
